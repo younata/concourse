@@ -1,0 +1,63 @@
+---
+# Setup /opt/concourse directory structure
+- name: Set up concourse directory
+  file:
+    path: /opt/concourse/worker
+    state: directory
+    recurse: yes
+
+- name: Set up concourse bin directory
+  file:
+    path: /opt/concourse/bin
+    state: directory
+    recurse: yes
+
+- name: Set up concourse key directory
+  file:
+    path: /opt/concourse/keys
+    state: directory
+    recurse: yes
+
+# Download and install latest concourse release
+- name: Get latest concourse release version
+  github_release:
+    user: concourse
+    repo: concourse
+    action: latest_release
+  register: latest_concourse_release
+
+- name: Install latest concourse
+  get_url:
+    url: https://github.com/concourse/concourse/releases/download/{latest_concourse_release}/concourse_linux_amd64
+    dest: /opt/concourse/bin/concourse
+    mode: 755
+    force: yes
+
+# Setup the scripts and dependencies to actually run a concourse worker
+- name: Setup Concourse worker command
+  copy:
+    src: run_concourse
+    dest: /opt/concourse/bin/run_concourse
+    mode: 755
+
+- name: Copy Worker Key
+  copy:
+    src: worker_key
+    dest: /opt/concourse/keys/worker_key
+
+- name: Copy TSA Host Key
+  copy:
+    src: host_key
+    dest: /opt/concourse/keys/host_key
+
+# Setup the systemd script
+- name: Ensure concourse systemd service is set up
+  copy:
+    src: concourse.service
+    dest: /etc/systemd/system/concourse.service
+
+- name: Ensure concourse worker is running
+  systemd:
+    name: concourse
+    enabled: yes
+    state: started

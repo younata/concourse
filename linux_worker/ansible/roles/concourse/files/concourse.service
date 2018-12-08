@@ -1,0 +1,11 @@
+[Unit]
+Description=Concourse Worker
+After=network.target
+
+[Service]
+type=simple
+ExecStart=/opt/concourse/bin/run_concourse
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

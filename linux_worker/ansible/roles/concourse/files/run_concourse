@@ -1,0 +1,7 @@
+#!/bin/bash
+
+/usr/local/bin/concourse worker \
+    --work-dir /opt/concourse/work_dir \
+    --tsa-host centauri.local:2222 \
+    --tsa-public-key /opt/concourse/keys/tsa_host_key.pub \
+    --tsa-worker-private-key /opt/concourse/keys/worker_key
