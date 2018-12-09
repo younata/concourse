@@ -1,0 +1,14 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Update installed packages
+  apt:
+    state: latest
+    upgrade: safe
+
+- name: Install/update docker
+  apt:
+    name: docker.io
+    state: latest

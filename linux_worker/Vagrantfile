@@ -16,9 +16,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.customize ["modifyvm", :id, "--ioapic", "on"]
   end
 
-  # Enable provisioning with Ansible.
   config.vm.provision "ansible" do |ansible|
-    ansible.compatibility_mode = "2.0"
-    ansible.playbook = "provisioning/main.yml"
+    ansible.playbook = "ansible/main.yml"
+    ansible.verbose = "v"
   end
 end
