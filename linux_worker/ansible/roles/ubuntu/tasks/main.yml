@@ -12,3 +12,10 @@
   apt:
     name: docker.io
     state: latest
+
+- name: Automatically prune docker containers
+  cron:
+    name: "Prune docker containers"
+    minute: "17"
+    hour: "3"
+    job: "docker system prune -af"

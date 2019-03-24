@@ -9,9 +9,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.hostname = "concourse-worker"
   config.vm.provider :virtualbox do |v|
-    v.name = "docker-test"
+    v.name = "concourse-worker"
     v.memory = 1024
-    v.cpus = 2
+    v.cpus = 1
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     v.customize ["modifyvm", :id, "--ioapic", "on"]
   end

@@ -4,4 +4,5 @@
     --work-dir /opt/concourse/work_dir \
     --tsa-host 192.168.0.104:2222 \
     --tsa-public-key /opt/concourse/keys/tsa_host_key.pub \
-    --tsa-worker-private-key /opt/concourse/keys/worker_key
+    --tsa-worker-private-key /opt/concourse/keys/worker_key \
+    --garden-dns-server 8.8.8.8
